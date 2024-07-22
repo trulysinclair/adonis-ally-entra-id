@@ -17,8 +17,8 @@ router.get('/', async ({ inertia }) => {
 
 router
   .group(() => {
-    router.get('/admin', async ({ auth }) => {
-      return auth.user
+    router.get('/admin', async ({ auth, inertia }) => {
+      return inertia.render('home', { version: 7, user: auth.user })
     })
   })
   .use(middleware.auth())
@@ -71,6 +71,6 @@ router.get('/entra/callback', async ({ ally, auth, response }) => {
     )
     await auth.use('web').login(usr)
 
-    response.redirect('/')
+    response.redirect('/admin')
   }
 })
