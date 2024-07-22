@@ -1,13 +1,13 @@
 /*
-|--------------------------------------------------------------------------
-| Environment variables service
-|--------------------------------------------------------------------------
-|
-| The `Env.create` method creates an instance of the Env service. The
-| service validates the environment variables and also cast values
-| to JavaScript data types.
-|
-*/
+ |--------------------------------------------------------------------------
+ | Environment variables service
+ |--------------------------------------------------------------------------
+ |
+ | The `Env.create` method creates an instance of the Env service. The
+ | service validates the environment variables and also cast values
+ | to JavaScript data types.
+ |
+ */
 
 import { Env } from '@adonisjs/core/env'
 
@@ -19,13 +19,25 @@ export default await Env.create(new URL('../', import.meta.url), {
   LOG_LEVEL: Env.schema.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']),
 
   /*
-  |----------------------------------------------------------
-  | Variables for @tiotbenjy/ally-entra-id provider
-  |----------------------------------------------------------
-  */
-  ENTRA_ID_AUTH_ENDPOINT: Env.schema.enum(['common', 'organizations', 'consumers', 'tenant'] as const),
+   |----------------------------------------------------------
+   | Variables for @tiotbenjy/ally-entra-id provider
+   |----------------------------------------------------------
+   */
+  ENTRA_ID_AUTH_ENDPOINT: Env.schema.enum([
+    'common',
+    'organizations',
+    'consumers',
+    'tenant',
+  ] as const),
   ENTRA_ID_CLIENT_ID: Env.schema.string(),
   ENTRA_ID_CLIENT_SECRET: Env.schema.string(),
   ENTRA_ID_CALLBACK_URL: Env.schema.string(),
   ENTRA_ID_TENANT_ID: Env.schema.string.optional(),
+
+  /*
+   |----------------------------------------------------------
+   | Variables for configuring session package
+   |----------------------------------------------------------
+   */
+  SESSION_DRIVER: Env.schema.enum(['cookie', 'memory'] as const),
 })
