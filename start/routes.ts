@@ -11,15 +11,23 @@ import User from '#models/user'
 import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 
+router.get('/', async () => {
+  return 'Hello, world!'
+})
+
 router
-  .get('/', async ({ auth }) => {
-    return auth.user
+  .group(() => {
+    router.get('/admin', async ({ auth }) => {
+      return auth.user
+    })
   })
   .use(middleware.auth())
 
-router.get('/login', async ({ ally }) => {
-  return ally.use('entra').redirect()
-})
+router
+  .get('/login', async ({ ally }) => {
+    return ally.use('entra').redirect()
+  })
+  .use(middleware.guest())
 
 router.get('/logout', async ({ auth, response }) => {
   await auth.use('web').logout()
@@ -65,6 +73,4 @@ router.get('/entra/callback', async ({ ally, auth, response }) => {
 
     response.redirect('/')
   }
-
-  // return user
 })
