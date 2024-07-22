@@ -11,8 +11,8 @@ import User from '#models/user'
 import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 
-router.get('/', async () => {
-  return 'Hello, world!'
+router.get('/', async ({ inertia }) => {
+  return inertia.render('home', { version: 6 })
 })
 
 router
